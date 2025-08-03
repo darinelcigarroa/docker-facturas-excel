@@ -1,4 +1,4 @@
-FROM php:8.2-fpm
+FROM php:8.2-cli
 
 ARG USER
 ARG UID
@@ -16,7 +16,6 @@ RUN apt-get update && apt-get install -y \
     libpq-dev \
     libzip-dev
 
-
 RUN docker-php-ext-install pdo pdo_pgsql mbstring exif pcntl bcmath gd zip
 
 COPY --from=composer:latest /usr/bin/composer /usr/bin/composer
@@ -28,3 +27,5 @@ RUN groupadd -g ${UID} ${USER} && \
     usermod -aG www-data ${USER}
 
 USER ${USER}
+
+CMD ["php", "artisan", "serve", "--host=0.0.0.0", "--port=8000"]
