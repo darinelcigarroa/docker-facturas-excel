@@ -26,8 +26,6 @@ services:
     networks:
       - laravel
       
-
-
   nginx:
     image: nginx:alpine
     container_name: laravel_nginx
@@ -50,6 +48,8 @@ services:
       POSTGRES_PASSWORD: secret
     volumes:
       - pgdata:/var/lib/postgresql/data
+    ports:
+      - "5432:5432"
     networks:
       - laravel
 
